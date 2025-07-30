@@ -3,6 +3,7 @@ const usuariospf = require('./usuariospf.js');
 const anexos = require('./anexos.js');
 const jtoken = require('./token.js');
 const request = require('sync-request');
+const compression = require('compression');
 
 const express = require('express');
 
@@ -28,7 +29,7 @@ const { isObject } = require('util');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: true })); // support encoded bodies
 //app.use('/validaConta', express.json());
-
+app.use(compression());
 regLog= (texto) =>{
        var texto2=''
        if(true){
