@@ -1379,21 +1379,24 @@ let trigger = false;
 
 app.post('/taxes-utilities', (req, res) => {
     const { status } = req.body;
-    regLog(req.body)
+    regLog(req.body);
     regLog(`Endpoint: /taxes-utilities | status: ${status}`);
 
     if (status === 'REJECTED' && trigger) {
         regLog(`Blocked status: ${status} at /taxes-utilities`);
         trigger = !trigger;
-        return res.status(400)
-            .set('Content-Type', 'application/json')
-            .send(JSON.stringify({
-                statusCode: 400,
-                message: 'Invalid document number'
-            }));
+
+        const body = JSON.stringify({
+            statusCode: 400,
+            message: 'Invalid document number'
+        });
+
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(body);
     }
 
-    return res.status(201).send();
+    res.writeHead(201);
+    res.end();
 });
 
 const blockedDocumentsDDA = [
@@ -1405,20 +1408,23 @@ const blockedDocumentsDDA = [
 
 app.post('/dda', (req, res) => {
     const { clientDocument } = req.body;
-    regLog(req.body)
+    regLog(req.body);
     regLog(`Endpoint: /dda | clientDocument: ${clientDocument}`);
 
     if (blockedDocumentsDDA.includes(clientDocument)) {
         regLog(`Blocked clientDocument: ${clientDocument} at /dda`);
-        return res.status(400)
-            .set('Content-Type', 'application/json')
-            .send(JSON.stringify({
-                statusCode: 400,
-                message: 'Blocked client document'
-            }));
+
+        const body = JSON.stringify({
+            statusCode: 400,
+            message: 'Blocked client document'
+        });
+
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(body);
     }
 
-    return res.status(201).send();
+    res.writeHead(201);
+    res.end();
 });
 
 const blockedDocumentsVehicle = [
@@ -1430,40 +1436,45 @@ const blockedDocumentsVehicle = [
 
 app.post('/vehicle-info', (req, res) => {
     const { documentNumber } = req.body;
-    regLog(req.body)
+    regLog(req.body);
     regLog(`Endpoint: /vehicle-info | documentNumber: ${documentNumber}`);
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /vehicle-info`);
-        return res.status(400)
-            .set('Content-Type', 'application/json')
-            .send(JSON.stringify({
-                statusCode: 400,
-                message: 'Blocked document number'
-            }));
+
+        const body = JSON.stringify({
+            statusCode: 400,
+            message: 'Blocked document number'
+        });
+
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(body);
     }
 
-    return res.status(201).send();
+    res.writeHead(201);
+    res.end();
 });
 
 app.post('/payment-vehicle', (req, res) => {
     const { documentNumber } = req.body;
-    regLog(req.body)
+    regLog(req.body);
     regLog(`Endpoint: /payment-vehicle | documentNumber: ${documentNumber}`);
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /payment-vehicle`);
-        return res.status(400)
-            .set('Content-Type', 'application/json')
-            .send(JSON.stringify({
-                statusCode: 400,
-                message: 'Blocked document number'
-            }));
+
+        const body = JSON.stringify({
+            statusCode: 400,
+            message: 'Blocked document number'
+        });
+
+        res.writeHead(400, { 'Content-Type': 'application/json' });
+        return res.end(body);
     }
 
-    return res.status(201).send();
+    res.writeHead(201);
+    res.end();
 });
-
 
 
 
