@@ -1375,7 +1375,6 @@ app.post('/notification-external', (req, res) => {
 
 
 
-
 let trigger = false;
 
 app.post('/taxes-utilities', (req, res) => {
@@ -1387,16 +1386,15 @@ app.post('/taxes-utilities', (req, res) => {
         regLog(`Blocked status: ${status} at /taxes-utilities`);
         trigger = !trigger;
         return res.status(400)
-        .set('Content-Type', 'application/json')
-        .json({
-            statusCode: 400,
-            message: 'Invalid document number'
-        });
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify({
+                statusCode: 400,
+                message: 'Invalid document number'
+            }));
     }
 
     return res.status(201).send();
 });
-
 
 const blockedDocumentsDDA = [
     '90688243096',
@@ -1413,11 +1411,11 @@ app.post('/dda', (req, res) => {
     if (blockedDocumentsDDA.includes(clientDocument)) {
         regLog(`Blocked clientDocument: ${clientDocument} at /dda`);
         return res.status(400)
-        .set('Content-Type', 'application/json')
-        .json({
-            statusCode: 400,
-            message: 'Blocked client document'
-        });
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify({
+                statusCode: 400,
+                message: 'Blocked client document'
+            }));
     }
 
     return res.status(201).send();
@@ -1437,13 +1435,12 @@ app.post('/vehicle-info', (req, res) => {
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /vehicle-info`);
-        
         return res.status(400)
-        .set('Content-Type', 'application/json')
-        .json({
-            statusCode: 400,
-            message: 'Blocked document number'
-        });
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify({
+                statusCode: 400,
+                message: 'Blocked document number'
+            }));
     }
 
     return res.status(201).send();
@@ -1457,16 +1454,15 @@ app.post('/payment-vehicle', (req, res) => {
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /payment-vehicle`);
         return res.status(400)
-        .set('Content-Type', 'application/json')
-        .json({
-            statusCode: 400,
-            message: 'Blocked document number'
-        });
+            .set('Content-Type', 'application/json')
+            .send(JSON.stringify({
+                statusCode: 400,
+                message: 'Blocked document number'
+            }));
     }
 
     return res.status(201).send();
 });
-
 
 
 
