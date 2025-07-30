@@ -29,7 +29,6 @@ const { isObject } = require('util');
 app.use(bodyParser.json()); // support json encoded bodies
 app.use(express.urlencoded({ extended: true })); // support encoded bodies
 //app.use('/validaConta', express.json());
-app.use(compression());
 regLog= (texto) =>{
        var texto2=''
        if(true){
@@ -1393,12 +1392,14 @@ app.post('/taxes-utilities', (req, res) => {
 
         res.writeHead(400, {
             'Content-Type': 'application/json',
-            'Cache-Control': 'no-store'
+            'Content-Encoding': 'identity', // <-- força sem compressão
+            'Cache-Control': 'no-store' // só por segurança
         });
         return res.end(body);
     }
 
     res.writeHead(201, {
+        'Content-Encoding': 'identity',
         'Cache-Control': 'no-store'
     });
     res.end();
@@ -1426,12 +1427,14 @@ app.post('/dda', (req, res) => {
 
         res.writeHead(400, {
             'Content-Type': 'application/json',
+            'Content-Encoding': 'identity',
             'Cache-Control': 'no-store'
         });
         return res.end(body);
     }
 
     res.writeHead(201, {
+        'Content-Encoding': 'identity',
         'Cache-Control': 'no-store'
     });
     res.end();
@@ -1459,12 +1462,14 @@ app.post('/vehicle-info', (req, res) => {
 
         res.writeHead(400, {
             'Content-Type': 'application/json',
+            'Content-Encoding': 'identity',
             'Cache-Control': 'no-store'
         });
         return res.end(body);
     }
 
     res.writeHead(201, {
+        'Content-Encoding': 'identity',
         'Cache-Control': 'no-store'
     });
     res.end();
@@ -1485,12 +1490,14 @@ app.post('/payment-vehicle', (req, res) => {
 
         res.writeHead(400, {
             'Content-Type': 'application/json',
+            'Content-Encoding': 'identity',
             'Cache-Control': 'no-store'
         });
         return res.end(body);
     }
 
     res.writeHead(201, {
+        'Content-Encoding': 'identity',
         'Cache-Control': 'no-store'
     });
     res.end();
