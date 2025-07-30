@@ -1386,9 +1386,11 @@ app.post('/taxes-utilities', (req, res) => {
     if (status === 'REJECTED' && trigger) {
         regLog(`Blocked status: ${status} at /taxes-utilities`);
         trigger = !trigger;
-        return res.status(400).json({
+        return res.status(400)
+        .set('Content-Type', 'application/json')
+        .json({
             statusCode: 400,
-            message: 'Blocked message code'
+            message: 'Invalid document number'
         });
     }
 
@@ -1410,7 +1412,9 @@ app.post('/dda', (req, res) => {
 
     if (blockedDocumentsDDA.includes(clientDocument)) {
         regLog(`Blocked clientDocument: ${clientDocument} at /dda`);
-        return res.status(400).json({
+        return res.status(400)
+        .set('Content-Type', 'application/json')
+        .json({
             statusCode: 400,
             message: 'Blocked client document'
         });
@@ -1433,7 +1437,10 @@ app.post('/vehicle-info', (req, res) => {
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /vehicle-info`);
-        return res.status(400).json({
+        
+        return res.status(400)
+        .set('Content-Type', 'application/json')
+        .json({
             statusCode: 400,
             message: 'Blocked document number'
         });
@@ -1449,7 +1456,9 @@ app.post('/payment-vehicle', (req, res) => {
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
         regLog(`Blocked documentNumber: ${documentNumber} at /payment-vehicle`);
-        return res.status(400).json({
+        return res.status(400)
+        .set('Content-Type', 'application/json')
+        .json({
             statusCode: 400,
             message: 'Blocked document number'
         });
