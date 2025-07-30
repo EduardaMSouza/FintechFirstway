@@ -1380,7 +1380,7 @@ let trigger = false;
 
 app.post('/taxes-utilities', (req, res) => {
     const { status } = req.body;
-
+    regLog(req.body)
     regLog(`Endpoint: /taxes-utilities | status: ${status}`);
 
     if (status === 'REJECTED' && trigger) {
@@ -1405,7 +1405,7 @@ const blockedDocumentsDDA = [
 
 app.post('/dda', (req, res) => {
     const { clientDocument } = req.body;
-
+    regLog(req.body)
     regLog(`Endpoint: /dda | clientDocument: ${clientDocument}`);
 
     if (blockedDocumentsDDA.includes(clientDocument)) {
@@ -1428,7 +1428,7 @@ const blockedDocumentsVehicle = [
 
 app.post('/vehicle-info', (req, res) => {
     const { documentNumber } = req.body;
-
+    regLog(req.body)
     regLog(`Endpoint: /vehicle-info | documentNumber: ${documentNumber}`);
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
@@ -1444,7 +1444,7 @@ app.post('/vehicle-info', (req, res) => {
 
 app.post('/payment-vehicle', (req, res) => {
     const { documentNumber } = req.body;
-
+    regLog(req.body)
     regLog(`Endpoint: /payment-vehicle | documentNumber: ${documentNumber}`);
 
     if (blockedDocumentsVehicle.includes(documentNumber)) {
