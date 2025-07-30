@@ -1368,7 +1368,7 @@ app.post('/token-external', (req, res) => {
 
 app.post('/notification-external', (req, res) => {
 
-       regLog(`Endpoint notification external: id: ${req.body.transactionInfo.id} paymenId: ${req.body.paymentId}`);
+       regLog(`Endpoint notification external: id: ${req.body}`);
 
        return res.status(201).send();
 });
