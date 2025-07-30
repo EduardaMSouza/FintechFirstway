@@ -1374,6 +1374,95 @@ app.post('/notification-external', (req, res) => {
 });
 
 
+
+
+let trigger = false;
+
+app.post('/taxes-utilities', (req, res) => {
+    const { status } = req.body;
+
+    regLog(`Endpoint: /taxes-utilities | status: ${status}`);
+
+    if (status === 'REJECTED' && trigger) {
+        regLog(`Blocked status: ${status} at /taxes-utilities`);
+        trigger = !trigger;
+        return res.status(400).json({
+            statusCode: 400,
+            message: 'Blocked message code'
+        });
+    }
+
+    return res.status(201).send();
+});
+
+
+const blockedDocumentsDDA = [
+    '90688243096',
+    '32827145000157',
+    '49926436048',
+    '54003504020'
+];
+
+app.post('/dda', (req, res) => {
+    const { clientDocument } = req.body;
+
+    regLog(`Endpoint: /dda | clientDocument: ${clientDocument}`);
+
+    if (blockedDocumentsDDA.includes(clientDocument)) {
+        regLog(`Blocked clientDocument: ${clientDocument} at /dda`);
+        return res.status(400).json({
+            statusCode: 400,
+            message: 'Blocked client document'
+        });
+    }
+
+    return res.status(201).send();
+});
+
+const blockedDocumentsVehicle = [
+    '04192841096',
+    '03800352001',
+    '01202549055',
+    '74151283030'
+];
+
+app.post('/vehicle-info', (req, res) => {
+    const { documentNumber } = req.body;
+
+    regLog(`Endpoint: /vehicle-info | documentNumber: ${documentNumber}`);
+
+    if (blockedDocumentsVehicle.includes(documentNumber)) {
+        regLog(`Blocked documentNumber: ${documentNumber} at /vehicle-info`);
+        return res.status(400).json({
+            statusCode: 400,
+            message: 'Blocked document number'
+        });
+    }
+
+    return res.status(201).send();
+});
+
+app.post('/payment-vehicle', (req, res) => {
+    const { documentNumber } = req.body;
+
+    regLog(`Endpoint: /payment-vehicle | documentNumber: ${documentNumber}`);
+
+    if (blockedDocumentsVehicle.includes(documentNumber)) {
+        regLog(`Blocked documentNumber: ${documentNumber} at /payment-vehicle`);
+        return res.status(400).json({
+            statusCode: 400,
+            message: 'Blocked document number'
+        });
+    }
+
+    return res.status(201).send();
+});
+
+
+
+
+
+
 app.listen(port, ()=>{
        regLog("Listem "+port)
 });
