@@ -1375,7 +1375,6 @@ app.post('/notification-external', (req, res) => {
 });
 
 
-
 let trigger = false;
 
 app.post('/taxes-utilities', (req, res) => {
@@ -1392,11 +1391,16 @@ app.post('/taxes-utilities', (req, res) => {
             message: 'Invalid document number'
         });
 
-        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+        });
         return res.end(body);
     }
 
-    res.writeHead(201);
+    res.writeHead(201, {
+        'Cache-Control': 'no-store'
+    });
     res.end();
 });
 
@@ -1420,11 +1424,16 @@ app.post('/dda', (req, res) => {
             message: 'Blocked client document'
         });
 
-        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+        });
         return res.end(body);
     }
 
-    res.writeHead(201);
+    res.writeHead(201, {
+        'Cache-Control': 'no-store'
+    });
     res.end();
 });
 
@@ -1448,11 +1457,16 @@ app.post('/vehicle-info', (req, res) => {
             message: 'Blocked document number'
         });
 
-        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+        });
         return res.end(body);
     }
 
-    res.writeHead(201);
+    res.writeHead(201, {
+        'Cache-Control': 'no-store'
+    });
     res.end();
 });
 
@@ -1469,14 +1483,18 @@ app.post('/payment-vehicle', (req, res) => {
             message: 'Blocked document number'
         });
 
-        res.writeHead(400, { 'Content-Type': 'application/json' });
+        res.writeHead(400, {
+            'Content-Type': 'application/json',
+            'Cache-Control': 'no-store'
+        });
         return res.end(body);
     }
 
-    res.writeHead(201);
+    res.writeHead(201, {
+        'Cache-Control': 'no-store'
+    });
     res.end();
 });
-
 
 
 
